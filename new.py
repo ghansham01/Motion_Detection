@@ -17,15 +17,16 @@ def play_sound_non_blocking(sound_file):
     if os.path.exists(sound_file):
         sound = pygame.mixer.Sound(sound_file)
         sound.play()
+        # pygame.time.delay(.5)  # Wait for the specified duration
     else:
         logging.warning(f"Sound file {sound_file} not found.")
 
 def initialize_video_capture():
-    cap = cv2.VideoCapture(0)
-    if not cap.isOpened():
+    cap2 = cv2.VideoCapture(0)
+    if not cap2.isOpened():
         logging.error("Error: Could not open video capture.")
         return None
-    return cap
+    return cap2
 
 def main(motion_area_threshold=500, sound_file='sound.mp3'):
     start_program_time = time.time()
@@ -37,7 +38,7 @@ def main(motion_area_threshold=500, sound_file='sound.mp3'):
     frame_width = int(cap.get(3))
     frame_height = int(cap.get(4))
     size = (frame_width, frame_height)
-
+    
     fourcc = cv2.VideoWriter_fourcc(*'XVID')
     motion_detected = False
     video_writer = None

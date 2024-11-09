@@ -1,0 +1,9 @@
+{
+    "camera_index": 0,
+    "motion_area_threshold": 500,
+    "recording_fps": 30,
+    "min_recording_time": 10,
+    "max_recording_time": 300,
+    "show_preview": true,
+    "enable_sound": true
+}
