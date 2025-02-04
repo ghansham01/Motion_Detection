@@ -79,8 +79,7 @@ def main(motion_area_threshold=500, sound_file='sound.mp3'):
     motion_start_time = None
     metrics = MotionMetrics()
     last_accuracy_print = time.time()
-    # New variable to count rectangles
-    rectangle_count = 0
+
     # Create window with trackbar for simulating actual motion
     cv2.namedWindow('Motion Detection')
     cv2.createTrackbar('Actual Motion', 'Motion Detection', 0, 1, lambda x: None)
@@ -112,8 +111,7 @@ def main(motion_area_threshold=500, sound_file='sound.mp3'):
 
                 (x, y, w, h) = cv2.boundingRect(contour)
                 cv2.rectangle(frame, (x, y), (x+w, y+h), (0, 255, 0), 2)
-                # Increment rectangle count
-                rectangle_count += 1
+                
 
         # Update metrics
         metrics.update_metrics(current_motion, actual_motion)
@@ -126,12 +124,10 @@ def main(motion_area_threshold=500, sound_file='sound.mp3'):
             accuracy = metrics.calculate_accuracy()
             accuracy_text = f"Accuracy: {accuracy:.2%}"
             metrics_text = f"TP: {metrics.true_positives} TN: {metrics.true_negatives} FP: {metrics.false_positives} FN: {metrics.false_negatives}"
-            rectangle_text = f"Rectangles: {rectangle_count}"
             cv2.putText(frame, accuracy_text, (10, 30), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2)
             cv2.putText(frame, metrics_text, (10, 70), cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 255, 0), 2)
-            cv2.putText(frame, rectangle_text, (10, 20), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 255), 2)
             last_accuracy_print = current_time
-            logging.info(f"{accuracy_text} | {metrics_text} | {rectangle_count}")
+            logging.info(f"{accuracy_text} | {metrics_text}")
 
         if motion_detected and video_writer is not None:
             video_writer.write(frame)
