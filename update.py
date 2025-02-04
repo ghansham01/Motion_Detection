@@ -112,4 +112,4 @@ def run_motion_detection():
 
 # Uncomment the line below to test the motion detection in a local environment.
 # run_motion_detection()
-if __name__=="__"
+# if __name__=="__main__":
